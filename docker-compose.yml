@@ -1,0 +1,38 @@
+version: '2.3'
+services:
+  redis:
+    image: redis:5.0.3
+    ports:
+      - "6379"
+
+  app:
+    depends_on:
+      - redis
+    image: example-flask-background-task:latest
+    command: /service/run_app.sh
+    build:
+      context: '.'
+      dockerfile: 'Dockerfile'
+    volumes:
+      - ./:/
+    ports:
+      - "5000:5000"
+    environment:
+      - PYTHONUNBUFFERED=0
+      - REDIS_ADDRESS=redis
+      - REDIS_PORT=6379
+
+  worker:
+    depends_on:
+      - redis
+    image: example-flask-background-task:latest
+    command: /service/run_worker.sh
+    build:
+      context: '.'
+      dockerfile: 'Dockerfile'
+    volumes:
+      - ./:/
+    environment:
+      - PYTHONUNBUFFERED=0
+      - REDIS_ADDRESS=redis
+      - REDIS_PORT=6379
