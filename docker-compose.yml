@@ -9,14 +9,14 @@ services:
     depends_on:
       - redis
     image: example-flask-background-task:latest
-    command: /service/run_app.sh
+    command: python /project/example/app.py
     build:
       context: '.'
       dockerfile: 'Dockerfile'
-    volumes:
-      - ./:/
+#    volumes:
+#      - ./:/
     ports:
-      - "5000:5000"
+      - "8000:8000"
     environment:
       - PYTHONUNBUFFERED=0
       - REDIS_ADDRESS=redis
@@ -30,8 +30,8 @@ services:
     build:
       context: '.'
       dockerfile: 'Dockerfile'
-    volumes:
-      - ./:/
+#    volumes:
+#      - ./:/
     environment:
       - PYTHONUNBUFFERED=0
       - REDIS_ADDRESS=redis
