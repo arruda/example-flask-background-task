@@ -1,7 +1,9 @@
 from flask import Flask
 from flask import render_template, jsonify, request, make_response
+from celery.result import AsyncResult
 
-from example.tasks import long_sum
+from .tasks import long_sum
+from .tasks import celery_app
 
 app = Flask(__name__, template_folder="./templates")
 
@@ -18,6 +20,16 @@ def call_task():
     result_task = long_sum.delay(3, 2)
     response_dict = {'status': result_task.status,
                      'result_task_id': result_task.id}
+    return make_response(jsonify(response_dict))
+
+
+@app.route('/show_result/<string:result_task_id>', methods=['GET'])
+def show_result(result_task_id):
+    result_task = AsyncResult(id=result_task_id, app=celery_app)
+    response_dict = {
+        'status': result_task.status,
+        'content': result_task.info
+    }
     return make_response(jsonify(response_dict))
 
 
