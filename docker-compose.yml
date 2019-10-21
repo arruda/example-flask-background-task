@@ -9,7 +9,7 @@ services:
     depends_on:
       - redis
     image: example-flask-background-task:latest
-    command: python /project/example/app.py
+    command: python -m example.app
     build:
       context: '.'
       dockerfile: 'Dockerfile'
@@ -26,7 +26,7 @@ services:
     depends_on:
       - redis
     image: example-flask-background-task:latest
-    command: /service/run_worker.sh
+    command: /project/run_worker.sh
     build:
       context: '.'
       dockerfile: 'Dockerfile'

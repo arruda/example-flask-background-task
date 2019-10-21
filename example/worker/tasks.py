@@ -1,9 +1,8 @@
 import time
 from flask import Flask
 from celery import Celery
-
-REDIS_ADDRESS = 'localhost'
-REDIS_PORT = '6379'
+from example.conf import REDIS_ADDRESS
+from example.conf import REDIS_PORT
 
 
 flask_app = Flask(__name__)
