@@ -50,6 +50,7 @@ $(document).ready(function () {
 
 
     document.getElementById("send").onclick = function () {
+        document.getElementById('send').disabled = true;
         essay_text = document.getElementById("essayArea").value;
         make_request(essay_text);
         // var element = document.getElementById("div1");
