@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template, jsonify, make_response
+from flask import render_template, jsonify, make_response, request
 from celery.result import AsyncResult
 from celery import Celery
 
@@ -23,6 +23,7 @@ def index():
 
 @app.route('/call_task', methods=['POST'])
 def call_task():
+    j = request.json
     result_task = long_sum.delay(11, 2)
     response_dict = {'status': result_task.status,
                      'result_task_id': result_task.id}

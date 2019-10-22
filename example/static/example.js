@@ -35,30 +35,27 @@ $(document).ready(function () {
         $.ajax({
             url: '/call_task',
             type: 'POST',
+            data: JSON.stringify({
+                message: text
+            }),
+            contentType: 'application/json',
+            processData: false,
             success: function (msg) {
                 response_task = msg;
                 call_answer(response_task.result_task_id);
-                // document.getElementById("result").innerHTML = "wait for a while!";
 
             },
-            // async: false,
         });
-        // )
-        // document.getElementById("result").innerHTML = "wait for a while!";
-        // call_answer('done');
+    };
 
-        // document.getElementById("result").innerHTML = prediction
-        // change_prediction_result(prediction);
+
+    document.getElementById("send").onclick = function () {
+        essay_text = document.getElementById("essayArea").value;
+        make_request(essay_text);
+        // var element = document.getElementById("div1");
     }
-
-    window.onload = function () {
-        document.getElementById("send").onclick = function () {
-            essay_text = document.getElementById("essayArea").value;
-            make_request(essay_text);
-            // var element = document.getElementById("div1");
-        }
-    }
-
+    // window.onload = function () {
+    // }
 });
 
 
