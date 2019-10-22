@@ -53,9 +53,8 @@ $(document).ready(function () {
 
     window.onload = function () {
         document.getElementById("send").onclick = function () {
-            // mock_make_request(essay_text);
-            // $("#result").append(" testing!")
-            make_request();
+            essay_text = document.getElementById("essayArea").value;
+            make_request(essay_text);
             // var element = document.getElementById("div1");
         }
     }
